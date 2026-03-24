@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Camera App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Camera viewport -->
+    <div id="viewport">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+
+      <!-- HUD overlays (shown per-mode) -->
+      <div id="hud-nightvision" class="hud" aria-hidden="true">
+        <div class="nv-vignette"></div>
+        <div class="nv-scanlines"></div>
+        <span class="hud-label">NV · ACTIVE</span>
+        <span class="hud-gain">GAIN ▮▮▮▮▯</span>
+      </div>
+
+      <div id="hud-infrared" class="hud" aria-hidden="true">
+        <div class="ir-scale">
+          <span>COLD</span>
+          <div class="ir-gradient"></div>
+          <span>HOT</span>
+        </div>
+        <span class="hud-label">THERMAL IR</span>
+      </div>
+
+      <div id="hud-radiation" class="hud" aria-hidden="true">
+        <div class="rad-symbol">&#9762;</div>
+        <div class="rad-meter">
+          <span class="rad-label">RAD μSv/h</span>
+          <div class="rad-bar-bg">
+            <div id="rad-bar" class="rad-bar"></div>
+          </div>
+          <span id="rad-value" class="rad-value">0.12</span>
+        </div>
+        <div class="nv-scanlines"></div>
+      </div>
+
+      <div id="hud-ghost" class="hud" aria-hidden="true">
+        <div class="ghost-static"></div>
+        <div class="emf-panel">
+          <span class="hud-label">EMF DETECTOR</span>
+          <div class="emf-bars">
+            <div class="emf-bar" id="emf-b1"></div>
+            <div class="emf-bar" id="emf-b2"></div>
+            <div class="emf-bar" id="emf-b3"></div>
+            <div class="emf-bar" id="emf-b4"></div>
+            <div class="emf-bar" id="emf-b5"></div>
+          </div>
+          <span id="emf-status" class="emf-status">SCANNING…</span>
+        </div>
+        <div class="nv-scanlines ghost-scan"></div>
+      </div>
+
+      <!-- Permission / error message -->
+      <div id="camera-error" class="camera-error" hidden>
+        <p>&#128247; Camera access required.</p>
+        <p>Please allow camera permission and reload.</p>
+        <button id="retry-btn">Retry</button>
+      </div>
+    </div>
+
+    <!-- Mode selector -->
+    <nav id="mode-nav" aria-label="Camera modes">
+      <button class="mode-btn active" data-mode="normal"        aria-pressed="true">Normal</button>
+      <button class="mode-btn"        data-mode="nightvision"   aria-pressed="false">Night Vision</button>
+      <button class="mode-btn"        data-mode="infrared"      aria-pressed="false">Infrared</button>
+      <button class="mode-btn"        data-mode="radiation"     aria-pressed="false">Radiation</button>
+      <button class="mode-btn"        data-mode="ghost"         aria-pressed="false">Ghost / EMF</button>
+    </nav>
+
+    <!-- Capture button -->
+    <div id="controls">
+      <button id="capture-btn" aria-label="Take photo">&#9711;</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
